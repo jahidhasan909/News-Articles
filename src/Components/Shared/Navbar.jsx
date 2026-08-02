@@ -3,7 +3,6 @@ import { useState } from 'react';
 const Navbar = () => {
   const [lang, setLang] = useState('EN');
 
-  
   const navLinks = (
     <>
       <li><a className="hover:text-sky-400 font-medium">Home</a></li>
@@ -43,11 +42,12 @@ const Navbar = () => {
   );
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-4">
+    
+    <div className="w-full max-w-7xl p-4 fixed top-0 left-1/2 -translate-x-1/2 z-[9999]">
       
       <div className="navbar bg-slate-900/40 backdrop-blur-md border border-white/20 text-white rounded-full px-6 py-2 shadow-lg flex justify-between items-center">
         
-        
+       
         <div className="navbar-start w-auto">
           <a className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
@@ -56,7 +56,7 @@ const Navbar = () => {
           </a>
         </div>
 
-      
+        
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-1 text-sm">
             {navLinks}
@@ -65,7 +65,6 @@ const Navbar = () => {
 
         
         <div className="navbar-end hidden lg:flex items-center gap-3 w-auto">
-         
           <div className="bg-white/10 p-1 rounded-full flex items-center border border-white/10 text-xs font-semibold">
             <button
               onClick={() => setLang('EN')}
@@ -85,27 +84,22 @@ const Navbar = () => {
             </button>
           </div>
 
-     
           <button className="btn btn-outline border-white/40 text-white hover:bg-white/10 rounded-full min-h-0 h-10 px-6 font-normal">
             Sign in
           </button>
 
-        
           <button className="btn bg-sky-500 hover:bg-sky-600 text-white border-none rounded-full min-h-0 h-10 px-6 font-medium shadow-md shadow-sky-500/30">
             Donate
           </button>
         </div>
 
-        
         <div className="lg:hidden flex items-center">
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle text-sky-400">
-              
               <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </div>
-            
             
             <ul
               tabIndex={0}
@@ -114,7 +108,6 @@ const Navbar = () => {
               {navLinks}
               <hr className="border-slate-700 my-2" />
               
-          
               <div className="flex flex-col gap-3 pt-1">
                 <div className="flex justify-between items-center bg-white/10 p-1 rounded-full">
                   <button
