@@ -30,7 +30,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
-        className="p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-1 cursor-pointer"
+        className="p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-1 cursor-pointer"
         aria-label="Previous Page"
       >
         <FiChevronLeft className="w-4 h-4" />
@@ -56,8 +56,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             onClick={() => onPageChange(page)}
             className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${
               isCurrent
-                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/30'
-                : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                ? 'bg-sky-500 text-white shadow-md shadow-sky-500/20'
+                : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
             }`}
           >
             {page}
@@ -68,7 +68,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
         disabled={currentPage === totalPages}
-        className="p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-1 cursor-pointer"
+        className="p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-1 cursor-pointer"
         aria-label="Next Page"
       >
         <span className="hidden sm:inline">Next</span>
