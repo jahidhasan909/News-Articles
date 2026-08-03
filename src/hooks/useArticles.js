@@ -14,7 +14,7 @@ export const useArticles = () => {
         }
       }
     } catch (error) {
-      console.error('Failed to load articles from localStorage:', error);
+      console.error('Failed to load articles:', error);
     }
     return initialArticles;
   });
@@ -28,7 +28,7 @@ export const useArticles = () => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
     } catch (error) {
-      console.error('Failed to persist articles to localStorage:', error);
+      console.error('Failed to persist articles:', error);
     }
   }, [articles]);
 
@@ -58,12 +58,16 @@ export const useArticles = () => {
     return articles.find((a) => a.featured) || articles[0] || null;
   }, [articles]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredArticles.length / itemsPerPage));
+  const mainGridArticles = useMemo(() => {
+    return filteredArticles;
+  }, [filteredArticles]);
+
+  const totalPages = Math.max(1, Math.ceil(mainGridArticles.length / itemsPerPage));
 
   const paginatedArticles = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
-    return filteredArticles.slice(startIndex, startIndex + itemsPerPage);
-  }, [filteredArticles, currentPage, itemsPerPage]);
+    return mainGridArticles.slice(startIndex, startIndex + itemsPerPage);
+  }, [mainGridArticles, currentPage, itemsPerPage]);
 
   const addArticle = useCallback((newArticleData) => {
     const newArticle = {
@@ -110,7 +114,7 @@ export const useArticles = () => {
 
   return {
     articles,
-    filteredArticles,
+    filteredArticles: mainGridArticles,
     paginatedArticles,
     featuredArticle,
     searchQuery,
@@ -122,7 +126,7 @@ export const useArticles = () => {
     totalPages,
     itemsPerPage,
     setItemsPerPage,
-    totalCount: filteredArticles.length,
+    totalCount: mainGridArticles.length,
     addArticle,
     updateArticle,
     deleteArticle,
