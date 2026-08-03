@@ -8,14 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
           <div className="md:col-span-6 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 p-0.5 shadow-md">
-                <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center font-black text-sky-400 text-sm">
-                  MH
-                </div>
-              </div>
-              <span className="font-bold text-lg text-white tracking-tight">
-                MaxValid Foundation
-              </span>
+              <img className="w-10 h-10 rounded-full shadow-md overflow-hidden ring-2 ring-white/30" src="https://i.ibb.co.com/BVjMGXbP/jahidhasan.jpg" alt="Logo" />
             </div>
             <p className="text-xs sm:text-sm text-slate-400 max-w-md leading-relaxed">
               This foundation is working to build a welfare service by following the foundation of the Prophet (Peace Be Upon Him). As the Messenger of Allah (Peace and Blessings Be Upon Him) said: the best of human beings is the servant of humanity.
@@ -58,12 +51,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="pt-8  text-xs text-slate-500 text-center">
           <p>© 2026 MaxValid Foundation. All rights reserved.</p>
-          <div className="flex items-center gap-6">
-            <Link to="/privacy" className="hover:text-slate-400">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-slate-400">Terms of Service</Link>
-          </div>
+          
         </div>
       </div>
     </footer>

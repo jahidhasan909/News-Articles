@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router';
 import { FiChevronDown, FiMenu, FiX } from 'react-icons/fi';
 import Button from '../UI/Button';
+import { ArrowDown, ChevronDown } from 'lucide-react';
 
 const Navbar = () => {
   const [lang, setLang] = useState('EN');
@@ -52,17 +53,9 @@ const Navbar = () => {
     <header className="w-full fixed top-0 left-0 right-0 z-50 px-4 pt-4 pb-2">
       <div className="max-w-7xl mx-auto">
         <nav className="relative bg-slate-900/60 backdrop-blur-md border border-white/20 rounded-full px-6 py-2.5 shadow-xl flex items-center justify-between text-white">
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/admin" className="flex items-center  group bg-white/20 px-1 py-1 rounded-full">
             <div className="w-10 h-10 rounded-full shadow-md overflow-hidden ring-2 ring-white/30 group-hover:scale-105 transition-transform">
               <img className="w-full h-full object-cover" src="https://i.ibb.co.com/BVjMGXbP/jahidhasan.jpg" alt="Logo" />
-            </div>
-            <div className="hidden sm:flex flex-col">
-              <span className="font-bold text-sm leading-tight text-white tracking-wide">
-                MaxValid
-              </span>
-              <span className="text-[10px] text-sky-300 font-medium uppercase tracking-wider">
-                Foundation
-              </span>
             </div>
           </Link>
 
@@ -139,9 +132,9 @@ const Navbar = () => {
               </button>
             </div>
 
-            <Link to="/admin">
+            <Link to="/">
               <Button variant="outline" size="sm" className="!rounded-full border-white/30 text-white hover:bg-white/15">
-                Admin
+                Sing In
               </Button>
             </Link>
 

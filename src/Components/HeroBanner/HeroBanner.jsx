@@ -18,14 +18,6 @@ const HeroBanner = () => {
           News & Articles
         </h1>
 
-        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs sm:text-sm font-medium bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/15 text-slate-200">
-          <span className="flex items-center gap-1 hover:text-white transition-colors cursor-pointer">
-            <FiHome className="w-3.5 h-3.5" />
-            <span>Home</span>
-          </span>
-          <FiChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          <span className="text-sky-400 font-semibold">News & Articles</span>
-        </nav>
       </div>
     </section>
   );

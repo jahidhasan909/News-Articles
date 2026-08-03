@@ -22,15 +22,15 @@ const AdminSidebar = ({ activeTab = 'blog', isOpen = false, onClose }) => {
     <div className="h-full flex flex-col justify-between p-5 text-slate-700">
       <div className="space-y-6">
         <div className="flex items-center justify-between px-2">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-sky-500 flex items-center justify-center font-bold text-white shadow-sm">
-              MV
-            </div>
+          <Link to="/">
+          <div className="flex items-center gap-2">
+            <img src="https://i.ibb.co.com/BVjMGXbP/jahidhasan.jpg" alt="" className="w-10 h-10 rounded-full border border-white shadow-md" />
             <div>
-              <h3 className="font-bold text-slate-900 text-sm">MaxValid Admin</h3>
+              <h3 className="font-bold text-slate-900 text-sm">Jahid Hasan</h3>
               <p className="text-[10px] text-slate-400">Content Portal</p>
             </div>
           </div>
+          </Link>
 
           {onClose && (
             <button
@@ -66,14 +66,7 @@ const AdminSidebar = ({ activeTab = 'blog', isOpen = false, onClose }) => {
       </div>
 
       <div className="pt-6 border-t border-slate-200 space-y-3">
-        <Link
-          to="/"
-          onClick={onClose}
-          className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-slate-600 hover:text-sky-600 transition-colors"
-        >
-          <FiChevronLeft className="w-4 h-4" />
-          <span>Back to Public Site</span>
-        </Link>
+        
 
         <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
           <div className="flex items-center gap-2.5">
@@ -81,8 +74,8 @@ const AdminSidebar = ({ activeTab = 'blog', isOpen = false, onClose }) => {
               SA
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-900 leading-tight">Super Admin</p>
-              <p className="text-[10px] text-slate-500">admin@maxvalid.com</p>
+              <p className="text-xs font-bold text-slate-900 leading-tight">Jahid Hasan</p>
+              <p className="text-[10px] text-slate-500">[EMAIL_ADDRESS]</p>
             </div>
           </div>
           <button className="text-slate-400 hover:text-red-500 transition-colors">
