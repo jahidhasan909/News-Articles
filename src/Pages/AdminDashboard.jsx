@@ -13,6 +13,7 @@ import {
   FiShare2,
   FiChevronRight,
   FiRefreshCw,
+  FiMenu,
 } from 'react-icons/fi';
 
 const AdminDashboard = () => {
@@ -30,6 +31,7 @@ const AdminDashboard = () => {
     resetToInitialData,
   } = useArticles();
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [articleToEdit, setArticleToEdit] = useState(null);
 
@@ -58,31 +60,45 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-50 text-slate-900 font-sans">
-      <AdminSidebar activeTab="blog" />
+    <div className="flex min-h-screen bg-slate-50 text-slate-900 font-sans relative">
+      <AdminSidebar
+        activeTab="blog"
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
 
-      <main className="flex-1 p-6 sm:p-8 overflow-y-auto max-w-7xl mx-auto">
+      <main className="flex-1 w-full p-4 sm:p-6 lg:p-8 overflow-y-auto max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
-          <div>
-            <div className="flex items-center gap-2 text-xs text-slate-500 mb-1">
-              <span>Admin</span>
-              <FiChevronRight className="w-3 h-3" />
-              <span className="text-sky-600 font-semibold">Blog & News Management</span>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="lg:hidden p-2 text-slate-600 hover:text-sky-600 bg-white border border-slate-200 rounded-xl shadow-xs"
+              aria-label="Open Navigation Menu"
+            >
+              <FiMenu className="w-5 h-5" />
+            </button>
+
+            <div>
+              <div className="flex items-center gap-2 text-xs text-slate-500 mb-1">
+                <span>Admin</span>
+                <FiChevronRight className="w-3 h-3" />
+                <span className="text-sky-600 font-semibold">Blog & News Management</span>
+              </div>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
+                Blog & News Management
+              </h1>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Blog & News Management
-            </h1>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <Button
               variant="outline"
               size="sm"
               icon={FiRefreshCw}
               onClick={resetToInitialData}
-              className="border-slate-300 text-slate-700 hover:bg-slate-100"
+              className="border-slate-300 text-slate-700 hover:bg-slate-100 flex-1 sm:flex-none text-xs"
             >
-              Reset Mock Data
+              Reset Data
             </Button>
 
             <Button
@@ -90,6 +106,7 @@ const AdminDashboard = () => {
               size="sm"
               icon={FiPlus}
               onClick={handleOpenCreate}
+              className="flex-1 sm:flex-none text-xs"
             >
               Create New Content
             </Button>
@@ -103,18 +120,18 @@ const AdminDashboard = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search content..."
+              placeholder="Search content title or category..."
               className="w-full bg-white border border-slate-200 text-slate-900 placeholder-slate-400 text-xs rounded-xl pl-10 pr-4 py-2.5 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20"
             />
           </div>
 
-          <span className="text-xs text-slate-500 font-medium self-end sm:self-center">
-            Total Articles: <strong className="text-slate-900">{filteredArticles.length}</strong>
+          <span className="text-xs text-slate-500 font-medium self-start sm:self-center">
+            Total Content Items: <strong className="text-slate-900">{filteredArticles.length}</strong>
           </span>
         </div>
 
-        <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-          <div className="overflow-x-auto">
+        <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50 text-slate-700 uppercase tracking-wider font-bold border-b border-slate-200">
                 <tr>
@@ -183,6 +200,61 @@ const AdminDashboard = () => {
                 )}
               </tbody>
             </table>
+          </div>
+
+          <div className="block md:hidden divide-y divide-slate-100">
+            {paginatedArticles.length === 0 ? (
+              <div className="p-8 text-center text-slate-400 text-xs">
+                No matching content found.
+              </div>
+            ) : (
+              paginatedArticles.map((article) => (
+                <div key={article.id} className="p-4 space-y-3">
+                  <div className="flex items-start gap-3">
+                    <img
+                      src={article.thumbnail}
+                      alt=""
+                      className="w-14 h-14 rounded-xl object-cover shrink-0 border border-slate-200"
+                    />
+                    <div className="flex-1 space-y-1">
+                      <p className="font-bold text-slate-900 text-xs leading-snug line-clamp-2">
+                        {article.title}
+                      </p>
+                      <div className="flex items-center justify-between text-[11px] text-slate-500">
+                        <Badge variant="sky" size="sm" className="!text-[9px]">
+                          {article.category}
+                        </Badge>
+                        <span>{article.publishedDate}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 flex items-center justify-between border-t border-slate-100 text-xs">
+                    <div className="flex items-center gap-1.5 text-sky-600 font-semibold">
+                      <FiShare2 className="w-3.5 h-3.5" />
+                      <span>{article.views ? Math.floor(article.views / 10) : 12} shares</span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleOpenEdit(article)}
+                        className="px-3 py-1.5 bg-slate-100 hover:bg-sky-50 text-sky-600 font-semibold rounded-lg text-xs transition-colors flex items-center gap-1"
+                      >
+                        <FiEdit2 className="w-3.5 h-3.5" />
+                        <span>Edit</span>
+                      </button>
+                      <button
+                        onClick={() => handleDelete(article.id)}
+                        className="px-3 py-1.5 bg-red-50 text-red-600 font-semibold rounded-lg text-xs transition-colors flex items-center gap-1"
+                      >
+                        <FiTrash2 className="w-3.5 h-3.5" />
+                        <span>Delete</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
 
           <div className="p-4 border-t border-slate-100 flex justify-center">
