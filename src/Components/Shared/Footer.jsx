@@ -1,145 +1,72 @@
-import { useState } from 'react';
-import { 
-  FiHome, 
-  FiHeart, 
-  FiBell, 
-  FiUsers 
-} from 'react-icons/fi';
-import { HiOutlineDocumentText } from 'react-icons/hi2';
+import React from 'react';
+import { Link } from 'react-router';
 
 const Footer = () => {
-  const [activeTab, setActiveTab] = useState('articles');
-
-  const footerSections = [
-    {
-      title: 'Company',
-      links: ['Home', 'About Us', 'Our Work', 'Gallery', 'Blog'],
-    },
-    {
-      title: 'Donate',
-      links: ['Donate', 'Blood Donate', 'Blood Request'],
-    },
-    {
-      title: 'Others',
-      links: ['Contact', 'Terms of Conditions', 'Privacy Policy'],
-    },
-  ];
-
   return (
-    <>
-     
-      <footer className="hidden md:block mt-16 bg-[#171717] text-gray-300 font-sans border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6 py-16 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
-            
-           
-            <div className="lg:col-span-5 flex flex-col gap-6">
-              <div className="w-24">
-                <img 
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" 
-                  alt="Bandhan Paribar Logo" 
-                  className="w-16 h-16 rounded-full object-cover"
-                />
-              </div>
-              <p className="text-[15px] leading-relaxed text-gray-300/90 pr-0 lg:pr-10">
-                This institution is striving to build an ideal welfare society by following the 
-                footsteps of the Prophet of Humanity, the Messenger of Human Freedom and 
-                Peace, the ideal of human service, the Prophet Muhammad (PBUH), in the 
-                service of humanity.
-              </p>
-            </div>
-
-            
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-10">
-              {footerSections.map((section, index) => (
-                <div key={index} className="flex flex-col gap-4">
-                  <h6 className="text-white text-base font-medium mb-2">
-                    {section.title}
-                  </h6>
-                  <div className="flex flex-col gap-3">
-                    {section.links.map((link, linkIndex) => (
-                      <a 
-                        key={linkIndex} 
-                        href="#" 
-                        className="link link-hover text-[15px] text-gray-400 hover:text-white transition-colors duration-200 w-fit"
-                      >
-                        {link}
-                      </a>
-                    ))}
-                  </div>
+    <footer className="w-full bg-slate-950 text-slate-400 pt-16 pb-8 border-t border-slate-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
+          <div className="md:col-span-6 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 p-0.5 shadow-md">
+                <div className="w-full h-full bg-slate-900 rounded-full flex items-center justify-center font-black text-sky-400 text-sm">
+                  MH
                 </div>
-              ))}
+              </div>
+              <span className="font-bold text-lg text-white tracking-tight">
+                MaxValid Foundation
+              </span>
             </div>
-
-          </div>
-        </div>
-
-       
-        <div className="w-full border-t border-gray-800">
-          <div className="max-w-7xl mx-auto px-6 py-6 flex justify-center items-center">
-            <p className="text-sm text-gray-500">
-              © 2026 Bandhan Paribar. All rights reserved
+            <p className="text-xs sm:text-sm text-slate-400 max-w-md leading-relaxed">
+              This foundation is working to build a welfare service by following the foundation of the Prophet (Peace Be Upon Him). As the Messenger of Allah (Peace and Blessings Be Upon Him) said: the best of human beings is the servant of humanity.
             </p>
           </div>
+
+          <div className="md:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">
+              Company
+            </h4>
+            <ul className="space-y-2 text-xs font-medium">
+              <li><Link to="/" className="hover:text-sky-400 transition-colors">Home</Link></li>
+              <li><Link to="/about" className="hover:text-sky-400 transition-colors">About Us</Link></li>
+              <li><Link to="/gallery" className="hover:text-sky-400 transition-colors">Our Work</Link></li>
+              <li><Link to="/donate" className="hover:text-sky-400 transition-colors">Donate</Link></li>
+              <li><Link to="/" className="hover:text-sky-400 transition-colors">Blog & News</Link></li>
+            </ul>
+          </div>
+
+          <div className="md:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">
+              Issues
+            </h4>
+            <ul className="space-y-2 text-xs font-medium">
+              <li><Link to="/events" className="hover:text-sky-400 transition-colors">Events</Link></li>
+              <li><Link to="/blood" className="hover:text-sky-400 transition-colors">Blood Donation</Link></li>
+              <li><Link to="/blood-request" className="hover:text-sky-400 transition-colors">Blood Request</Link></li>
+            </ul>
+          </div>
+
+          <div className="md:col-span-2 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">
+              Others
+            </h4>
+            <ul className="space-y-2 text-xs font-medium">
+              <li><Link to="/contact" className="hover:text-sky-400 transition-colors">Contact</Link></li>
+              <li><Link to="/terms" className="hover:text-sky-400 transition-colors">Terms of Conditions</Link></li>
+              <li><Link to="/privacy" className="hover:text-sky-400 transition-colors">Privacy Policy</Link></li>
+            </ul>
+          </div>
         </div>
-      </footer>
 
-      
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2.5 z-50 shadow-lg">
-        <div className="flex items-center justify-between max-w-md mx-auto">
-          
-         
-          <button 
-            onClick={() => setActiveTab('home')}
-            className={`p-2 text-gray-500 hover:text-gray-900 transition-colors ${
-              activeTab === 'home' ? 'text-sky-500' : ''
-            }`}
-          >
-            <FiHome className="w-6 h-6" />
-          </button>
-
-   
-          <button 
-            onClick={() => setActiveTab('donate')}
-            className={`p-2 text-gray-500 hover:text-gray-900 transition-colors ${
-              activeTab === 'donate' ? 'text-sky-500' : ''
-            }`}
-          >
-            <FiHeart className="w-6 h-6" />
-          </button>
-
-         
-          <button 
-            onClick={() => setActiveTab('alert')}
-            className={`p-2 text-gray-500 hover:text-gray-900 transition-colors ${
-              activeTab === 'alert' ? 'text-sky-500' : ''
-            }`}
-          >
-            <FiBell className="w-6 h-6" />
-          </button>
-
-        
-          <button 
-            onClick={() => setActiveTab('partnership')}
-            className={`p-2 text-gray-500 hover:text-gray-900 transition-colors ${
-              activeTab === 'partnership' ? 'text-sky-500' : ''
-            }`}
-          >
-            <FiUsers className="w-6 h-6" />
-          </button>
-
-        
-          <button 
-            onClick={() => setActiveTab('articles')}
-            className="flex items-center gap-2 bg-sky-500 text-white px-4 py-2 rounded-xl font-medium text-sm shadow-sm transition-all active:scale-95"
-          >
-            <HiOutlineDocumentText className="w-5 h-5" />
-            <span>Articles</span>
-          </button>
-
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <p>© 2026 MaxValid Foundation. All rights reserved.</p>
+          <div className="flex items-center gap-6">
+            <Link to="/privacy" className="hover:text-slate-400">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-slate-400">Terms of Service</Link>
+          </div>
         </div>
       </div>
-    </>
+    </footer>
   );
 };
 

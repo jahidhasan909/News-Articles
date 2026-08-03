@@ -1,59 +1,135 @@
-import CategoryMenu from "./CategoryManu";
+import React, { useState } from 'react';
+import CategoryMenu from './CategoryManu';
+import FeaturedArticle from './FeaturedArticle';
+import ArticleGrid from './ArticleGrid';
+import SearchBar from './SearchBar';
+import Pagination from './Pagination';
+import Modal from '../UI/Modal';
+import Badge from '../UI/Badge';
+import { FiCalendar, FiEye, FiUser, FiTag } from 'react-icons/fi';
 
+const HomeMainContent = ({ articleState }) => {
+  const {
+    filteredArticles,
+    paginatedArticles,
+    featuredArticle,
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    articles,
+  } = articleState;
 
-const HomeMainContent = () => {
-    return (
-        <div className="bg-base-200">
+  const [selectedArticleModal, setSelectedArticleModal] = useState(null);
 
-            <div className=" max-w-11/12 mx-auto">
-                <label className="input mt-20 w-full">
-                    <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <g
-                            strokeLinejoin="round"
-                            strokeLinecap="round"
-                            strokeWidth="2.5"
-                            fill="none"
-                            stroke="currentColor"
-                        >
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.3-4.3"></path>
-                        </g>
-                    </svg>
-                    <input type="search" required placeholder="Search" />
-                </label>
+  return (
+    <main className="w-full bg-slate-50 dark:bg-slate-950 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto space-y-8">
+        <SearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          placeholder="Search by title, keywords, or content..."
+        />
 
-                <div className="pt-9 hidden lg:block">
+        {!searchQuery && selectedCategory === 'All News & Articles' && (
+          <FeaturedArticle
+            article={featuredArticle}
+            onSelectArticle={(art) => setSelectedArticleModal(art)}
+          />
+        )}
 
-                    <h1 className="text-2xl py-2">Featured News & Articles</h1>
-                    <div className="w-full rounded-xl  shadow-md">
-                        <div className="flex flex-col gap-8 lg:grid lg:grid-cols-2">
-                            <img
-                                src="https://i.ibb.co.com/KxjWNmjM/Screenshot-2026-08-02-at-5-50-52-PM-Picsart-Ai-Image-Enhancer.webp"
-                                className="w-full rounded-lg"
-                            />
-                            <div className="pt-15 space-y-5">
-                                <h1 className="text-3xl font-bold">Relief distribution among <br /> flood victims in Greater...</h1>
-                                <p className="">
-                                    A severe flood hit Chittagong in the first <br /> week of this month. Extensive areas in <br /> Chittagong, Cox's Bazar, and Bandarban were
-                                </p>
-                                <p>July 22, 2026</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-3">
+            <CategoryMenu
+              selectedCategory={selectedCategory}
+              onSelectCategory={setSelectedCategory}
+              articles={articles}
+            />
+          </div>
 
+          <div className="lg:col-span-9 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-6 pb-2 border-b border-slate-200 dark:border-slate-800">
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  {selectedCategory}
+                </h2>
+                <span className="text-xs text-slate-500 font-medium">
+                  Showing {paginatedArticles.length} of {filteredArticles.length} articles
+                </span>
+              </div>
 
-                <section className="grid grid-cols-4 mt-5">
-                    <div className="col-span-1">
-                        <CategoryMenu></CategoryMenu>
-                    </div>
-                    <div className="bg-green-300 col-span-3">
-                        right side
-                    </div>
-                </section>
+              <ArticleGrid
+                articles={paginatedArticles}
+                onSelectArticle={(art) => setSelectedArticleModal(art)}
+              />
             </div>
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </div>
         </div>
-    );
+      </div>
+
+      <Modal
+        isOpen={!!selectedArticleModal}
+        onClose={() => setSelectedArticleModal(null)}
+        maxWidth="max-w-3xl"
+      >
+        {selectedArticleModal && (
+          <div className="space-y-6">
+            <div className="relative h-64 sm:h-80 w-full rounded-2xl overflow-hidden">
+              <img
+                src={selectedArticleModal.thumbnail}
+                alt={selectedArticleModal.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-4 left-4">
+                <Badge variant="sky" size="md" className="bg-sky-500 text-white font-bold border-none shadow-md">
+                  {selectedArticleModal.category}
+                </Badge>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 font-medium border-b border-slate-100 pb-3">
+                <span className="flex items-center gap-1.5">
+                  <FiCalendar className="text-sky-500" />
+                  {selectedArticleModal.publishedDate}
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <FiUser className="text-sky-500" />
+                  {selectedArticleModal.author || 'As-Sunnah Team'}
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <FiEye className="text-sky-500" />
+                  {selectedArticleModal.views || 0} views
+                </span>
+              </div>
+
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                {selectedArticleModal.title}
+              </h2>
+            </div>
+
+            <div className="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed space-y-4">
+              <p className="font-semibold text-slate-800 dark:text-slate-200">
+                {selectedArticleModal.excerpt}
+              </p>
+              <p>
+                {selectedArticleModal.body}
+              </p>
+            </div>
+          </div>
+        )}
+      </Modal>
+    </main>
+  );
 };
 
 export default HomeMainContent;
