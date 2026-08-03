@@ -1,59 +1,55 @@
-import  { useState } from 'react';
+import React from 'react';
+import { CATEGORIES } from '../../data/mockArticles';
 
-const CategoryMenu = () => {
-  
-  const categories = [
-    "All Gallery & Media",
-    "Blood Donation",
-    "Tree Plantation",
-    "Education & Student Support",
-    "Women Empowerment",
-    "Disability Support",
-    "Community Development",
-    "Anti-Drug Awareness",
-    "Travel & Tour Management",
-    "Disaster",
-    "Blanket Distribution During Winter",
-    "Iftar Distribution",
-    "Winter Clothing Distribution",
-    "Safe Drinking Water",
-    "Qurbani for Everyone",
-    "Food Distribution",
-    "Skills Development Training"
-  ];
-
-  
-  const [activeCategory, setActiveCategory] = useState("All Gallery & Media");
+const CategoryMenu = ({ selectedCategory, onSelectCategory, articles = [] }) => {
+  const getCategoryCount = (categoryName) => {
+    if (categoryName === 'All News & Articles' || categoryName === 'All News & Media') {
+      return articles.length;
+    }
+    return articles.filter(
+      (art) => art.category.toLowerCase() === categoryName.toLowerCase()
+    ).length;
+  };
 
   return (
-    <div className="flex justify-center items-center min-h-screen  p-4">
-     
-      <div className="card w-80 sm:w-96 bg-base-100 shadow-xl border border-gray-100 py-2 rounded-2xl">
-        <div className="card-body p-0">
-          <ul className="menu w-full p-0">
-            {categories.map((category, index) => {
-              const isActive = activeCategory === category;
-              return (
-                <li key={index} className="border-b border-gray-100 last:border-none">
-                  <button
-                    onClick={() => setActiveCategory(category)}
-                    className={`relative w-full text-left py-3.5 px-6 rounded-none text-sm font-medium transition-colors hover:bg-gray-50 focus:bg-gray-50 ${
-                      isActive ? 'text-gray-900 font-semibold' : 'text-gray-700'
-                    }`}
-                  >
-                 
-                    {isActive && (
-                      <span className="absolute left-0 top-0 bottom-0 w-1 bg-sky-500 rounded-r-md"></span>
-                    )}
-                    {category}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
-    </div>
+    <aside className="w-full bg-white dark:bg-slate-900 rounded-3xl p-5 border border-slate-100 dark:border-slate-800 shadow-sm sticky top-28">
+      <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4 pb-3 border-b border-slate-100 dark:border-slate-800 tracking-tight">
+        Categories
+      </h3>
+
+      <ul className="flex flex-col gap-1.5 max-h-[600px] overflow-y-auto pr-1 custom-scrollbar">
+        {CATEGORIES.map((category, index) => {
+          const isSelected =
+            selectedCategory === category ||
+            (selectedCategory === 'All News & Media' && category === 'All News & Articles');
+          const count = getCategoryCount(category);
+
+          return (
+            <li key={index}>
+              <button
+                onClick={() => onSelectCategory && onSelectCategory(category)}
+                className={`w-full flex items-center justify-between text-left px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all duration-200 cursor-pointer ${
+                  isSelected
+                    ? 'bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 font-bold shadow-xs border border-sky-200 dark:border-sky-800/80'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-slate-200'
+                }`}
+              >
+                <span className="truncate pr-2">{category}</span>
+                <span
+                  className={`text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0 ${
+                    isSelected
+                      ? 'bg-sky-500 text-white'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400'
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </aside>
   );
 };
 
