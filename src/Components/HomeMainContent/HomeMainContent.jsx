@@ -26,8 +26,8 @@ const HomeMainContent = ({ articleState }) => {
   const [selectedArticleModal, setSelectedArticleModal] = useState(null);
 
   return (
-    <main className="w-full bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 text-slate-900">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <main className="w-full bg-slate-50 py-6 sm:py-10 lg:py-14 px-3 sm:px-6 lg:px-8 text-slate-900">
+      <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
         <SearchBar
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -41,8 +41,8 @@ const HomeMainContent = ({ articleState }) => {
           />
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-3">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+          <div className="lg:col-span-3 w-full">
             <CategoryMenu
               selectedCategory={selectedCategory}
               onSelectCategory={setSelectedCategory}
@@ -50,10 +50,10 @@ const HomeMainContent = ({ articleState }) => {
             />
           </div>
 
-          <div className="lg:col-span-9 flex flex-col justify-between">
+          <div className="lg:col-span-9 flex flex-col justify-between w-full">
             <div>
-              <div className="flex items-center justify-between mb-6 pb-2 border-b border-slate-200">
-                <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 pb-2 border-b border-slate-200 gap-2">
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
                   {selectedCategory}
                 </h2>
                 <span className="text-xs text-slate-500 font-medium">
@@ -82,22 +82,22 @@ const HomeMainContent = ({ articleState }) => {
         maxWidth="max-w-3xl"
       >
         {selectedArticleModal && (
-          <div className="space-y-6">
-            <div className="relative h-64 sm:h-80 w-full rounded-2xl overflow-hidden">
+          <div className="space-y-5 sm:space-y-6">
+            <div className="relative h-48 sm:h-72 md:h-80 w-full rounded-xl sm:rounded-2xl overflow-hidden">
               <img
                 src={selectedArticleModal.thumbnail}
                 alt={selectedArticleModal.title}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute top-4 left-4">
-                <Badge variant="sky" size="md" className="bg-sky-500 text-white font-bold border-none shadow-md">
+              <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
+                <Badge variant="sky" size="md" className="bg-sky-500 text-white font-bold border-none shadow-md text-xs">
                   {selectedArticleModal.category}
                 </Badge>
               </div>
             </div>
 
             <div className="space-y-3">
-              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-500 font-medium border-b border-slate-100 pb-3">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs text-slate-500 font-medium border-b border-slate-100 pb-3">
                 <span className="flex items-center gap-1.5">
                   <FiCalendar className="text-sky-500" />
                   {selectedArticleModal.publishedDate}
@@ -112,12 +112,12 @@ const HomeMainContent = ({ articleState }) => {
                 </span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 leading-tight">
                 {selectedArticleModal.title}
               </h2>
             </div>
 
-            <div className="prose max-w-none text-slate-700 text-sm sm:text-base leading-relaxed space-y-4">
+            <div className="prose max-w-none text-slate-700 text-xs sm:text-sm md:text-base leading-relaxed space-y-4">
               <p className="font-semibold text-slate-800">
                 {selectedArticleModal.excerpt}
               </p>
