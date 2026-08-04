@@ -1,19 +1,27 @@
 import React from 'react';
 import { FiCalendar, FiArrowRight, FiEye } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 import Badge from '../UI/Badge';
 
 const FeaturedArticle = ({ article, onSelectArticle }) => {
   if (!article) return null;
 
   return (
-    <div className="w-full mb-10">
+    <motion.div
+      initial={{ opacity: 0, y: 25 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="w-full mb-10"
+    >
       <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-4 tracking-tight">
         Featured News & Articles
       </h2>
 
-      <div
+      <motion.div
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.3 }}
         onClick={() => onSelectArticle && onSelectArticle(article)}
-        className="group relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl border border-slate-200 transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0 cursor-pointer"
+        className="group relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl border border-slate-200 transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0 cursor-pointer"
       >
         <div className="lg:col-span-6 relative h-64 sm:h-80 lg:h-auto overflow-hidden">
           <img
@@ -55,8 +63,8 @@ const FeaturedArticle = ({ article, onSelectArticle }) => {
             <FiArrowRight className="w-4 h-4" />
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

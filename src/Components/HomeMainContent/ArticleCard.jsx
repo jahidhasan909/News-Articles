@@ -1,14 +1,19 @@
 import React from 'react';
 import { FiCalendar, FiEye, FiArrowRight } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 import Badge from '../UI/Badge';
 
 const ArticleCard = ({ article, onSelectArticle }) => {
   if (!article) return null;
 
   return (
-    <article
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -6, scale: 1.01 }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
       onClick={() => onSelectArticle && onSelectArticle(article)}
-      className="group bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer transform hover:-translate-y-1"
+      className="group bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-xs hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between cursor-pointer"
     >
       <div>
         <div className="relative h-48 sm:h-52 w-full overflow-hidden">
@@ -55,7 +60,7 @@ const ArticleCard = ({ article, onSelectArticle }) => {
           {article.author || 'As-Sunnah'}
         </span>
       </div>
-    </article>
+    </motion.article>
   );
 };
 

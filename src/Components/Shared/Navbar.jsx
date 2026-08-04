@@ -178,7 +178,7 @@ const Navbar = () => {
               <div className="flex justify-between items-center bg-white/10 p-1 rounded-full">
                 <button
                   onClick={() => toggleLang('EN')}
-                  className={`flex-1 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  className={`flex-1 py-1.5 hover:cursor-pointer rounded-full text-xs font-semibold transition-all ${
                     lang === 'EN' ? 'bg-sky-500 text-white' : 'text-slate-300'
                   }`}
                 >
@@ -186,7 +186,7 @@ const Navbar = () => {
                 </button>
                 <button
                   onClick={() => toggleLang('BN')}
-                  className={`flex-1 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  className={`flex-1 py-1.5 hover:cursor-pointer rounded-full text-xs font-semibold transition-all ${
                     lang === 'BN' ? 'bg-sky-500 text-white' : 'text-slate-300'
                   }`}
                 >
