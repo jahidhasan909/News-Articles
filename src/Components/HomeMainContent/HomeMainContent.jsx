@@ -6,7 +6,7 @@ import SearchBar from './SearchBar';
 import Pagination from './Pagination';
 import Modal from '../UI/Modal';
 import Badge from '../UI/Badge';
-import { FiCalendar, FiEye, FiUser } from 'react-icons/fi';
+import { FiCalendar, FiEye, FiUser, FiLoader, FiAlertCircle, FiRefreshCw } from 'react-icons/fi';
 
 const HomeMainContent = ({ articleState }) => {
   const {
@@ -21,9 +21,40 @@ const HomeMainContent = ({ articleState }) => {
     setCurrentPage,
     totalPages,
     articles,
+    loading,
+    error,
+    refetch,
   } = articleState;
 
   const [selectedArticleModal, setSelectedArticleModal] = useState(null);
+
+  if (loading) {
+    return (
+      <main className="w-full bg-slate-50 py-20 px-4 text-center flex flex-col items-center justify-center min-h-[400px]">
+        <div className="w-12 h-12 rounded-full border-4 border-sky-200 border-t-sky-500 animate-spin mb-4" />
+        <p className="text-sm font-semibold text-slate-700">Loading articles from server...</p>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="w-full bg-slate-50 py-20 px-4 text-center flex flex-col items-center justify-center min-h-[400px]">
+        <div className="w-14 h-14 rounded-full bg-red-50 text-red-500 flex items-center justify-center mb-4">
+          <FiAlertCircle className="w-8 h-8" />
+        </div>
+        <h3 className="text-lg font-bold text-slate-900 mb-1">Failed to load articles</h3>
+        <p className="text-xs text-slate-500 max-w-md mb-4">{error}</p>
+        <button
+          onClick={refetch}
+          className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-full bg-sky-500 text-white hover:bg-sky-600 transition-colors shadow-sm"
+        >
+          <FiRefreshCw className="w-3.5 h-3.5" />
+          <span>Try Again</span>
+        </button>
+      </main>
+    );
+  }
 
   return (
     <main className="w-full bg-slate-50 py-6 sm:py-10 lg:py-14 px-3 sm:px-6 lg:px-8 text-slate-900">

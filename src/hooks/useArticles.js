@@ -1,36 +1,59 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { initialArticles } from '../data/mockArticles';
 
 const STORAGE_KEY = 'maxvalid_news_articles';
 
 export const useArticles = () => {
-  const [articles, setArticles] = useState(() => {
-    try {
-      const savedArticles = localStorage.getItem(STORAGE_KEY);
-      if (savedArticles) {
-        const parsed = JSON.parse(savedArticles);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
-        }
-      }
-    } catch (error) {
-      console.error('Failed to load articles:', error);
-    }
-    return initialArticles;
-  });
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All News & Articles');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
-  useEffect(() => {
+  const fetchArticles = useCallback(async () => {
+    setLoading(true);
+    setError(null);
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
-    } catch (error) {
-      console.error('Failed to persist articles:', error);
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setArticles(parsed);
+          setLoading(false);
+          return;
+        }
+      }
+
+      const response = await fetch('/data/articles.json');
+      if (!response.ok) {
+        throw new Error(`Failed to fetch articles (Status: ${response.status})`);
+      }
+      const data = await response.json();
+      setArticles(data);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (err) {
+      console.error('Error loading articles:', err);
+      setError(err.message || 'An error occurred while fetching articles');
+    } finally {
+      setLoading(false);
     }
-  }, [articles]);
+  }, []);
+
+  useEffect(() => {
+    fetchArticles();
+  }, [fetchArticles]);
+
+  useEffect(() => {
+    if (!loading && articles.length > 0) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
+      } catch (err) {
+        console.error('Error persisting articles:', err);
+      }
+    }
+  }, [articles, loading]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -107,13 +130,26 @@ export const useArticles = () => {
     [articles]
   );
 
-  const resetToInitialData = useCallback(() => {
-    setArticles(initialArticles);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(initialArticles));
+  const resetToInitialData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('/data/articles.json');
+      if (response.ok) {
+        const data = await response.json();
+        setArticles(data);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      }
+    } catch (err) {
+      console.error('Reset error:', err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   return {
     articles,
+    loading,
+    error,
     filteredArticles: mainGridArticles,
     paginatedArticles,
     featuredArticle,
@@ -132,5 +168,6 @@ export const useArticles = () => {
     deleteArticle,
     getArticleById,
     resetToInitialData,
+    refetch: fetchArticles,
   };
 };
