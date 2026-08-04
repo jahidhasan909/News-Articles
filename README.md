@@ -1,6 +1,6 @@
-# News & Articles Portal
+# News & Articles Portal 
 
-A production-quality, fully responsive React web application built for the MaxValid Frontend Internship Assignment based on the Figma design.
+A production-quality, fully responsive React web application built for Frontend  based on the Figma design.
 
 ## Features
 
@@ -70,26 +70,3 @@ src/
 └── routes/
     └── route.jsx
 ```
-
-## Setup & Running Locally
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/jahidhasan909/News-Articles.git
-   cd News-Articles
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Build for production:
-   ```bash
-   npm run build
-   ```
