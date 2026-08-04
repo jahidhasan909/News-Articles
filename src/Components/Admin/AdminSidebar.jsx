@@ -1,21 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import {
   FiGrid,
   FiUsers,
   FiFileText,
   FiLayers,
   FiLogOut,
-  FiChevronLeft,
   FiX,
 } from 'react-icons/fi';
 
-const AdminSidebar = ({ activeTab = 'blog', isOpen = false, onClose }) => {
+const AdminSidebar = ({ activeTab, isOpen = false, onClose }) => {
+  const location = useLocation();
+
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: FiGrid, path: '/admin' },
-    { id: 'user', label: 'User Management', icon: FiUsers, path: '/admin' },
-    { id: 'blog', label: 'Blog & News Management', icon: FiFileText, path: '/admin', active: true },
-    { id: 'testing', label: 'Testing Management', icon: FiLayers, path: '/admin' },
+    { id: 'blog', label: 'Blog & News Management', icon: FiFileText, path: '/admin' },
+    { id: 'dashboard', label: 'Dashboard Overview', icon: FiGrid, path: '/admin/dashboard' },
+    { id: 'user', label: 'User Management', icon: FiUsers, path: '/admin/users' },
+    { id: 'testing', label: 'Testing Management', icon: FiLayers, path: '/admin/testing' },
   ];
 
   const sidebarContent = (
@@ -23,13 +24,13 @@ const AdminSidebar = ({ activeTab = 'blog', isOpen = false, onClose }) => {
       <div className="space-y-6">
         <div className="flex items-center justify-between px-2">
           <Link to="/">
-          <div className="flex items-center gap-2">
-            <img src="https://i.ibb.co.com/BVjMGXbP/jahidhasan.jpg" alt="" className="w-10 h-10 rounded-full border border-white shadow-md" />
-            <div>
-              <h3 className="font-bold text-slate-900 text-sm">Jahid Hasan</h3>
-              <p className="text-[10px] text-slate-400">Content Portal</p>
+            <div className="flex items-center gap-2">
+              <img src="https://i.ibb.co.com/BVjMGXbP/jahidhasan.jpg" alt="Admin Avatar" className="w-10 h-10 rounded-full border border-white shadow-md" />
+              <div>
+                <h3 className="font-bold text-slate-900 text-sm">Jahid Hasan</h3>
+                <p className="text-[10px] text-slate-400">Content Portal</p>
+              </div>
             </div>
-          </div>
           </Link>
 
           {onClose && (
@@ -45,7 +46,7 @@ const AdminSidebar = ({ activeTab = 'blog', isOpen = false, onClose }) => {
         <nav className="space-y-1.5">
           {menuItems.map((item) => {
             const Icon = item.icon;
-            const isActive = item.active || item.id === activeTab;
+            const isActive = activeTab ? activeTab === item.id : location.pathname === item.path;
             return (
               <Link
                 key={item.id}
@@ -66,8 +67,6 @@ const AdminSidebar = ({ activeTab = 'blog', isOpen = false, onClose }) => {
       </div>
 
       <div className="pt-6 border-t border-slate-200 space-y-3">
-        
-
         <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-sky-500/10 text-sky-600 font-bold text-xs flex items-center justify-center">

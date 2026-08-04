@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router';
 import MainLayout from '../MainLayout/MainLayout';
 import HomePage from '../Pages/HomePage';
 import AdminDashboard from '../Pages/AdminDashboard';
+import AdminPlaceholderPage from '../Pages/AdminPlaceholderPage';
 import PlaceholderPage from '../Pages/PlaceholderPage';
 
 const route = createBrowserRouter([
@@ -34,8 +35,20 @@ const route = createBrowserRouter([
     Component: AdminDashboard,
   },
   {
+    path: '/admin/dashboard',
+    element: <AdminPlaceholderPage title="Dashboard Overview" activeTab="dashboard" description="Overview statistics and analytics module for portal monitoring." />,
+  },
+  {
+    path: '/admin/users',
+    element: <AdminPlaceholderPage title="User Management" activeTab="user" description="Manage system administrators, roles, permissions, and accounts." />,
+  },
+  {
+    path: '/admin/testing',
+    element: <AdminPlaceholderPage title="Testing Management" activeTab="testing" description="Quality assurance testing suites and environment controls." />,
+  },
+  {
     path: '*',
-    element: <PlaceholderPage title="404 - Page Under Construction" category="Page Not Found" />,
+    element: <PlaceholderPage title="404 - Page Not Found" category="Page Not Found" />,
   },
 ]);
 

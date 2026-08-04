@@ -42,11 +42,8 @@ const SplashScreen = ({ onFinished }) => {
 
         <div className="text-center space-y-1">
           <h1 className="text-2xl font-extrabold tracking-wider text-white">
-            MaxValid
+            News & Articles
           </h1>
-          <p className="text-xs text-sky-400 font-semibold tracking-widest uppercase">
-            Foundation Portal
-          </p>
         </div>
 
         <div className="w-48 h-1.5 bg-slate-800 rounded-full overflow-hidden">
