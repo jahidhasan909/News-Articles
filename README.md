@@ -1,4 +1,4 @@
-# MaxValid Frontend Internship Assignment - News & Articles Portal
+# News & Articles Portal
 
 A production-quality, fully responsive React web application built for the MaxValid Frontend Internship Assignment based on the Figma design.
 
