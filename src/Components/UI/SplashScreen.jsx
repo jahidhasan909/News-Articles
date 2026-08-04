@@ -24,7 +24,7 @@ const SplashScreen = ({ onFinished }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[999999] bg-slate-950 flex flex-col items-center justify-center text-white transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[999999] backdrop-blur-xs bg-white/30 flex flex-col items-center justify-center text-white transition-opacity duration-500 ${
         fade ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
@@ -41,7 +41,7 @@ const SplashScreen = ({ onFinished }) => {
         </div>
 
         <div className="text-center space-y-1">
-          <h1 className="text-2xl font-extrabold tracking-wider text-white">
+          <h1 className="text-2xl font-extrabold shadow-xs tracking-wider text-blue-900">
             News & Articles
           </h1>
         </div>
