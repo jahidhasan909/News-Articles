@@ -81,11 +81,10 @@ const ImageUploadModal = ({ isOpen, onClose, onSelectImage }) => {
                   setPreviewUrl(img);
                   setFileName(`Sample Image ${idx + 1}`);
                 }}
-                className={`relative h-20 rounded-xl overflow-hidden border-2 transition-all ${
-                  previewUrl === img
+                className={`relative h-20 rounded-xl overflow-hidden border-2 transition-all ${previewUrl === img
                     ? 'border-sky-500 ring-2 ring-sky-400/40 scale-95'
                     : 'border-transparent hover:opacity-80'
-                }`}
+                  }`}
               >
                 <img src={img} alt={`Sample ${idx}`} className="w-full h-full object-cover" />
               </button>

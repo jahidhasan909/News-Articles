@@ -52,11 +52,10 @@ const AdminSidebar = ({ activeTab, isOpen = false, onClose }) => {
                 key={item.id}
                 to={item.path}
                 onClick={onClose}
-                className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold transition-all ${
-                  isActive
+                className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold transition-all ${isActive
                     ? 'bg-sky-500 text-white shadow-md shadow-sky-500/20'
                     : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                }`}
+                  }`}
               >
                 <Icon className="w-4 h-4" />
                 <span>{item.label}</span>

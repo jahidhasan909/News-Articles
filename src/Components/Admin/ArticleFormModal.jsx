@@ -93,7 +93,8 @@ const ArticleFormModal = ({ isOpen, onClose, onSave, articleToEdit }) => {
             <select
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-              className="w-full bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 text-sm rounded-xl border border-slate-200 dark:border-slate-800 px-4 py-2.5 outline-none focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500"
+              style={{ backgroundColor: '#ffffff', color: '#0f172a' }}
+              className="w-full text-sm rounded-xl border border-slate-200 hover:border-slate-300 px-4 py-2.5 outline-none transition-all duration-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20 cursor-pointer"
             >
               {CATEGORIES.filter(c => c !== 'All News & Articles' && c !== 'All News & Media').map((cat, i) => (
                 <option key={i} value={cat}>
@@ -112,7 +113,8 @@ const ArticleFormModal = ({ isOpen, onClose, onSave, articleToEdit }) => {
               value={formData.excerpt}
               onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
               placeholder="Brief summary of the article..."
-              className="w-full bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 text-sm rounded-xl border border-slate-200 dark:border-slate-800 p-3 outline-none focus:ring-4 focus:ring-sky-500/20 focus:border-sky-500"
+              style={{ backgroundColor: '#ffffff', color: '#0f172a' }}
+              className="w-full placeholder-slate-400 text-sm rounded-xl border border-slate-200 hover:border-slate-300 p-3 outline-none transition-all duration-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20"
             />
             {errors.excerpt && <span className="text-xs text-red-500 font-medium">{errors.excerpt}</span>}
           </div>
@@ -142,7 +144,8 @@ const ArticleFormModal = ({ isOpen, onClose, onSave, articleToEdit }) => {
                 value={formData.body}
                 onChange={(e) => setFormData({ ...formData, body: e.target.value })}
                 placeholder="Type content body..."
-                className="w-full p-4 bg-transparent text-slate-900 dark:text-slate-100 text-sm outline-none resize-y"
+                style={{ backgroundColor: '#ffffff', color: '#0f172a' }}
+                className="w-full p-4 placeholder-slate-400 text-sm outline-none resize-y"
               />
             </div>
             {errors.body && <span className="text-xs text-red-500 font-medium">{errors.body}</span>}

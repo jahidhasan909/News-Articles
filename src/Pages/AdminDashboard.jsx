@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AdminSidebar from '../Components/Admin/AdminSidebar';
 import ArticleFormModal from '../Components/Admin/ArticleFormModal';
+import ConfirmModal from '../Components/UI/ConfirmModal';
 import Button from '../Components/UI/Button';
 import Badge from '../Components/UI/Badge';
 import Pagination from '../Components/HomeMainContent/Pagination';
@@ -12,7 +13,6 @@ import {
   FiTrash2,
   FiShare2,
   FiChevronRight,
-  FiRefreshCw,
   FiMenu,
 } from 'react-icons/fi';
 
@@ -34,6 +34,8 @@ const AdminDashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [articleToEdit, setArticleToEdit] = useState(null);
+  const [articleToDelete, setArticleToDelete] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleOpenCreate = () => {
     setArticleToEdit(null);
@@ -53,9 +55,15 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this article?')) {
-      deleteArticle(id);
+  const handleOpenDelete = (article) => {
+    setArticleToDelete(article);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (articleToDelete) {
+      deleteArticle(articleToDelete.id);
+      setArticleToDelete(null);
     }
   };
 
@@ -185,8 +193,8 @@ const AdminDashboard = () => {
                             <FiEdit2 className="w-4 h-4" />
                           </button>
                           <button
-                            onClick={() => handleDelete(article.id)}
-                            className="p-2 hover:cursor-pointer text-slate-500 hover:text-red-500 hover:bg-slate-100 rounded-lg transition-colors"
+                            onClick={() => handleOpenDelete(article)}
+                            className="p-2 hover:cursor-pointer text-slate-500 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
                             title="Delete content"
                           >
                             <FiTrash2 className="w-4 h-4" />
@@ -242,8 +250,8 @@ const AdminDashboard = () => {
                         <span>Edit</span>
                       </button>
                       <button
-                        onClick={() => handleDelete(article.id)}
-                        className="px-3 py-1.5 bg-red-50 text-red-600 font-semibold rounded-lg text-xs transition-colors flex items-center gap-1"
+                        onClick={() => handleOpenDelete(article)}
+                        className="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-lg text-xs transition-colors flex items-center gap-1 cursor-pointer"
                       >
                         <FiTrash2 className="w-3.5 h-3.5" />
                         <span>Delete</span>
@@ -270,6 +278,17 @@ const AdminDashboard = () => {
         onClose={() => setIsModalOpen(false)}
         onSave={handleSaveArticle}
         articleToEdit={articleToEdit}
+      />
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title="Delete Article"
+        message="Are you sure you want to delete this article? This action is permanent and cannot be undone."
+        itemTitle={articleToDelete?.title}
+        confirmText="Delete Article"
+        cancelText="Cancel"
       />
     </div>
   );
